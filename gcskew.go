@@ -10,7 +10,7 @@ type gcskew struct {
 	Values []string
 }
 
-func gcskewCalc(sequence string) string {
+func calcGcskew(sequence string) string {
 	a, t, g, c := 1.0, 1.0, 1.0, 1.0
 
 	for _, s := range sequence {
@@ -32,7 +32,7 @@ func gcskewCalc(sequence string) string {
 	return fmt.Sprintf("%.6f", (g-c)/(g+c))
 }
 
-func CalculateGCSkew(fastas []*fasta, window int, step int, max_len int) ([]*gcskew, error) {
+func GCSkewSlidingWindow(fastas []*fasta, window int, step int, max_len int) ([]*gcskew, error) {
 
 	gcskews := []*gcskew{}
 
@@ -48,9 +48,9 @@ func CalculateGCSkew(fastas []*fasta, window int, step int, max_len int) ([]*gcs
 
 		new_gcskew.ID = fasta.Id
 
-		for i := 0; i < max_len-window; i++ {
+		for i := 0; i < max_len-window; i += step {
 			sub_sequence := sequence[i : i+window]
-			skew := gcskewCalc(sub_sequence)
+			skew := calcGcskew(sub_sequence)
 			new_gcskew.Values = append(new_gcskew.Values, skew)
 		}
 
