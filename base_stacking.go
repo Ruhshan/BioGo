@@ -5,23 +5,22 @@ import (
 	"fmt"
 )
 
-
-type base_stacking struct{
-	ID string
-	Values [] string
+type base_stacking struct {
+	ID     string
+	Values []string
 }
 
-func calcBaseStaking(sequence string)string{
-	
+func calcBaseStaking(sequence string) string {
+
 	stacking_energy := map[string]float64{
-		"AA":-5.37,"AC":-10.51,"AG":-6.78,"AT":-6.57,
-        "CA":-6.57,"CC":-8.26,"CG":-9.69,"CT":-6.78,
-        "GA":-9.81,"GC":-14.59,"GG":-8.26,"GT":-10.51,
-        "TA":-3.82,"TC":-9.81,"TG":-6.57,"TT":-5.37,
+		"AA": -5.37, "AC": -10.51, "AG": -6.78, "AT": -6.57,
+		"CA": -6.57, "CC": -8.26, "CG": -9.69, "CT": -6.78,
+		"GA": -9.81, "GC": -14.59, "GG": -8.26, "GT": -10.51,
+		"TA": -3.82, "TC": -9.81, "TG": -6.57, "TT": -5.37,
 	}
 	energy := 0.0
-	for i:=0;i<len(sequence)-1;i+=2{
-		energy+=stacking_energy[sequence[i:i+2]]
+	for i := 0; i < len(sequence)-1; i += 2 {
+		energy += stacking_energy[sequence[i:i+2]]
 	}
 
 	return fmt.Sprintf("%.6f", energy)
